@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="content">
+            <div class="head">
+                <div class="box first">
+                    <p>Hit</p>
+                    <div id="hit" class="bx">6</div>
+                </div>
+                <div class="box second">
+                    <p>Timer</p>
+                    <div id="time" class="bx">60</div>
+                </div>
+                <div class="box third">
+                    <p>Score</p>
+                    <div id="scoreVal" class="bx">0</div>
+                </div>
+            </div>
+            <div class="foot">
+                <div class="bubble">6</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var timer=60
+var score=0
+var hitrn=0
+function scoreIncrese(){
+    score +=10;
+    document.querySelector("#scoreVal").innerHTML=score
+}
+
+function scoreDecrease(){
+    if (score>0) {
+        score -=2;
+        document.querySelector("#scoreVal").innerHTML=score
+    }
+
+
+}
+
+function newHit(){
+    hitrn=Math.floor(Math.random()*10)
+    document.querySelector("#hit").innerHTML=hitrn
+}
+
+
+function bubbleMaker() {
+    var bulbule=''
+    for(let i=1;i<=83;i++){
+        var rn= Math.floor( Math.random()*10 ) 
+        bulbule += `<div class="bubble">${rn}</div>`
+    }
+    document.querySelector(".foot").innerHTML=bulbule
+}
+
+
+function timeOut(){
+    var timeint = setInterval(function(){
+        if (timer>0) {
+            timer--;
+            document.querySelector("#time").innerHTML=timer
+        }
+        else{
+            clearInterval(timeint)
+            document.querySelector(".foot").innerHTML=`<h1>Game Over </h1>`
+        }
+    },1000);
+}
+
+document.querySelector(".foot").addEventListener("click",function(dets){
+    var trt=Number((dets.target.textContent))
+    if (trt==hitrn) {
+        scoreIncrese();
+        newHit();
+        bubbleMaker();
+    }
+    else if(trt != hitrn){
+        scoreDecrease()
+    }
+})
+
+timeOut();
+bubbleMaker();
+newHit();
+
+
+    </script>
+</body>
+</html>
